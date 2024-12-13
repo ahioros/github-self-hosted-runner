@@ -1,0 +1,21 @@
+name: github-self-hosted
+services:
+  runner:
+    container_name: github-self-hosted-runner-ubuntu
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - REPO=${REPO}
+      - TOKEN=${ACCESS_TOKEN}
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "0.35"
+          memory: 300M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
